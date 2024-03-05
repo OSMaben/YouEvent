@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\eventDetails;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SociaLiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/details', [eventDetails::class, 'index']);
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,4 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('auth/google', [SociaLiteController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [SociaLiteController::class, 'handleGoogleCallBack']);
+Route::get('/create-event' , [EventController::class, 'create']);
+Route::post('/event_create', )
 require __DIR__.'/auth.php';
