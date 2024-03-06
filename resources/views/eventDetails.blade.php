@@ -1,397 +1,331 @@
-@extends('layouts.layout')
-@section('content')
 
-    <div class="wrapper">
-        <div class="breadcrumb-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-10">
-                        <div class="barren-breadcrumb">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="explore_events.html">Explore Events</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Online Event Detail View</li>
-                                </ol>
-                            </nav>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+
+    <title>Blog Detail App - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            background-color: #f4f7f6;
+            margin-top:20px;
+        }
+        .card {
+            background: #fff;
+            transition: .5s;
+            border: 0;
+            margin-bottom: 30px;
+            border-radius: .55rem;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+        }
+        .card .body {
+            color: #444;
+            padding: 20px;
+            font-weight: 400;
+        }
+        .card .header {
+            color: #444;
+            padding: 20px;
+            position: relative;
+            box-shadow: none;
+        }
+        .single_post {
+            -webkit-transition: all .4s ease;
+            transition: all .4s ease
+        }
+
+        .single_post .body {
+            padding: 30px
+        }
+
+        .single_post .img-post {
+            position: relative;
+            overflow: hidden;
+            max-height: 500px;
+            margin-bottom: 30px
+        }
+
+        .single_post .img-post>img {
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+            -webkit-transition: -webkit-transform .4s ease, opacity .4s ease;
+            transition: transform .4s ease, opacity .4s ease;
+            max-width: 100%;
+            filter: none;
+            -webkit-filter: grayscale(0);
+            -webkit-transform: scale(1.01)
+        }
+
+        .single_post .img-post:hover img {
+            -webkit-transform: scale(1.02);
+            -ms-transform: scale(1.02);
+            transform: scale(1.02);
+            opacity: .7;
+            filter: gray;
+            -webkit-filter: grayscale(1);
+            -webkit-transition: all .8s ease-in-out
+        }
+
+        .single_post .img-post:hover .social_share {
+            display: block
+        }
+
+        .single_post .footer {
+            padding: 0 30px 30px 30px
+        }
+
+        .single_post .footer .actions {
+            display: inline-block
+        }
+
+        .single_post .footer .stats {
+            cursor: default;
+            list-style: none;
+            padding: 0;
+            display: inline-block;
+            float: right;
+            margin: 0;
+            line-height: 35px
+        }
+
+        .single_post .footer .stats li {
+            border-left: solid 1px rgba(160, 160, 160, 0.3);
+            display: inline-block;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            line-height: 1;
+            margin: 0 0 0 2em;
+            padding: 0 0 0 2em;
+            text-transform: uppercase;
+            font-size: 13px
+        }
+
+        .single_post .footer .stats li a {
+            color: #777
+        }
+
+        .single_post .footer .stats li:first-child {
+            border-left: 0;
+            margin-left: 0;
+            padding-left: 0
+        }
+
+        .single_post h3 {
+            font-size: 20px;
+            text-transform: uppercase
+        }
+
+        .single_post h3 a {
+            color: #242424;
+            text-decoration: none
+        }
+
+        .single_post p {
+            font-size: 16px;
+            line-height: 26px;
+            font-weight: 300;
+            margin: 0
+        }
+
+        .single_post .blockquote p {
+            margin-top: 0 !important
+        }
+
+        .single_post .meta {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        .single_post .meta li {
+            display: inline-block;
+            margin-right: 15px
+        }
+
+        .single_post .meta li a {
+            font-style: italic;
+            color: #959595;
+            text-decoration: none;
+            font-size: 12px
+        }
+
+        .single_post .meta li a i {
+            margin-right: 6px;
+            font-size: 12px
+        }
+
+        .single_post2 {
+            overflow: hidden
+        }
+
+        .single_post2 .content {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 80px;
+            position: relative
+        }
+
+        .single_post2 .content .actions_sidebar {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 60px
+        }
+
+        .single_post2 .content .actions_sidebar a {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            margin-right: 0;
+            text-align: center;
+            border-right: 1px solid #e4eaec
+        }
+
+        .single_post2 .content .title {
+            font-weight: 100
+        }
+
+        .single_post2 .content .text {
+            font-size: 15px
+        }
+
+        .right-box .categories-clouds li {
+            display: inline-block;
+            margin-bottom: 5px
+        }
+
+        .right-box .categories-clouds li a {
+            display: block;
+            border: 1px solid;
+            padding: 6px 10px;
+            border-radius: 3px
+        }
+
+        .right-box .instagram-plugin {
+            overflow: hidden
+        }
+
+        .right-box .instagram-plugin li {
+            float: left;
+            overflow: hidden;
+            border: 1px solid #fff
+        }
+
+        .comment-reply li {
+            margin-bottom: 15px
+        }
+
+        .comment-reply li:last-child {
+            margin-bottom: none
+        }
+
+        .comment-reply li h5 {
+            font-size: 18px
+        }
+
+        .comment-reply li p {
+            margin-bottom: 0px;
+            font-size: 15px;
+            color: #777
+        }
+
+        .comment-reply .list-inline li {
+            display: inline-block;
+            margin: 0;
+            padding-right: 20px
+        }
+
+        .comment-reply .list-inline li a {
+            font-size: 13px
+        }
+
+        @media (max-width: 640px) {
+            .blog-page .left-box .single-comment-box>ul>li {
+                padding: 25px 0
+            }
+            .blog-page .left-box .single-comment-box ul li .icon-box {
+                display: inline-block
+            }
+            .blog-page .left-box .single-comment-box ul li .text-box {
+                display: block;
+                padding-left: 0;
+                margin-top: 10px
+            }
+            .blog-page .single_post .footer .stats {
+                float: none;
+                margin-top: 10px
+            }
+            .blog-page .single_post .body,
+            .blog-page .single_post .footer {
+                padding: 30px
+            }
+        }
+    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+<body>
+<div id="main-content" class="blog-page">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 left-box">
+                <div class="card single_post">
+                    <div class="body">
+                        <div class="img-post">
+                            <img src="storage/images/{{$event->image}}" class="d-block img-fluid"  alt="First slide">
+                        </div>
+                        <h3><a href="blog-details.html">{{$event->title}}</a></h3>
+                        <p>
+                            {{$event->description}}
+                        .</p>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-4 col-md-12 right-box">
+                <div class="card">
+                    <div class="body search">
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search...">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="event-dt-block p-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-                        <div class="event-top-dts">
-                            <div class="event-top-date">
-                                <span class="event-month">Jun</span>
-                                <span class="event-date">01</span>
-                            </div>
-                            <div class="event-top-dt">
-                                <h3 class="event-main-title">Tutorial on Canvas Painting for Beginners</h3>
-                                <div class="event-top-info-status">
-                                    <span class="event-type-name"><i class="fa-solid fa-video"></i>Online Event</span>
-                                    <span class="event-type-name details-hr">Starts on <span class="ev-event-date">Wed, Jun 01, 2022 5:30 AM</span></span>
-                                    <span class="event-type-name details-hr">1h</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="header">
+                        <h2>Categories Clouds</h2>
                     </div>
-                    <div class="col-xl-8 col-lg-7 col-md-12">
-                        <div class="main-event-dt">
-                            <div class="event-img">
-                                <img src="images/event-imgs/big-1.jpg" alt="">
-                            </div>
-                            <div class="share-save-btns dropdown">
-                                <button class="sv-btn me-2"><i class="fa-regular fa-bookmark me-2"></i>Save</button>
-                                <button class="sv-btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-share-nodes me-2"></i>Share</button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-facebook me-3"></i>Facebook</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-twitter me-3"></i>Twitter</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-brands fa-linkedin-in me-3"></i>LinkedIn</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-envelope me-3"></i>Email</a></li>
-                                </ul>
-                            </div>
-                            <div class="main-event-content">
-                                <h4>About This Event</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dolor justo, sodales mattis orci et, mattis faucibus est. Nulla semper consectetur sapien a tempor. Ut vel lacus lorem. Nulla mauris massa, pharetra a mi ut, mattis euismod libero. Ut pretium bibendum urna nec egestas. Etiam tempor vehicula libero. Aenean cursus venenatis orci, ac porttitor leo porta sit amet. Nulla eleifend mollis enim sed rutrum. Nunc cursus ex a ligula consequat aliquet. Donec semper tellus ac ante vestibulum, vitae varius leo mattis. In vestibulum blandit tempus. Etiam elit turpis, volutpat hendrerit varius ut, posuere a sapien. Maecenas molestie bibendum finibus. Nulla euismod neque vel sem hendrerit faucibus. Nam sit amet metus sollicitudin, luctus eros at, consectetur libero.</p>
-                                <p>In malesuada luctus libero sed gravida. Suspendisse nunc est, maximus vel viverra nec, suscipit non massa. Maecenas efficitur vestibulum pellentesque. Ut finibus ullamcorper congue. Sed ut libero sit amet lorem venenatis facilisis. Mauris egestas tortor vel massa auctor, eget gravida mauris cursus. Etiam elementum semper fermentum. Suspendisse potenti. Morbi lobortis leo urna, non laoreet enim ultricies id. Integer id felis nec sapien consectetur porttitor. Proin tempor mauris in odio iaculis semper. Cras ultricies nulla et dui viverra, eu convallis orci fermentum.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-12">
-                        <div class="main-card event-right-dt">
-                            <div class="bp-title">
-                                <h4>Event Details</h4>
-                            </div>
-                            <div class="time-left">
-                                <div class="countdown">
-                                    <div class="countdown-item">
-                                        <span id="day"></span>days
-                                    </div>
-                                    <div class="countdown-item">
-                                        <span id="hour"></span>Hours
-                                    </div>
-                                    <div class="countdown-item">
-                                        <span id="minute"></span>Minutes
-                                    </div>
-                                    <div class="countdown-item">
-                                        <span id="second"></span>Seconds
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-dt-right-group mt-5">
-                                <div class="event-dt-right-icon">
-                                    <i class="fa-solid fa-circle-user"></i>
-                                </div>
-                                <div class="event-dt-right-content">
-                                    <h4>Organised by</h4>
-                                    <h5>Story Tellers</h5>
-                                    <a href="attendee_profile_view.html">View Profile</a>
-                                </div>
-                            </div>
-                            <div class="event-dt-right-group">
-                                <div class="event-dt-right-icon">
-                                    <i class="fa-solid fa-calendar-day"></i>
-                                </div>
-                                <div class="event-dt-right-content">
-                                    <h4>Date and Time</h4>
-                                    <h5>Wed, Jun 01, 2022 5:30 AM</h5>
-                                    <div class="add-to-calendar">
-                                        <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-regular fa-calendar-days me-3"></i>Add to Calendar
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#"><i class="fa-brands fa-windows me-3"></i>Outlook</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-brands fa-apple me-3"></i>Apple</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-brands fa-google me-3"></i>Google</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-brands fa-yahoo me-3"></i>Yahoo</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-dt-right-group">
-                                <div class="event-dt-right-icon">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <div class="event-dt-right-content">
-                                    <h4>Location</h4>
-                                    <h5 class="mb-0">Online</h5>
-                                </div>
-                            </div>
-                            <div class="event-dt-right-group">
-                                <div class="event-dt-right-icon">
-                                    <i class="fa-solid fa-money-check-dollar"></i>
-                                </div>
-                                <div class="event-dt-right-content">
-                                    <h4>AUD</h4>
-                                    <h5 class="mb-0">$50.00</h5>
-                                </div>
-                            </div>
-                            <div class="booking-btn">
-                                <a href="checkout.html" class="main-btn btn-hover w-100">Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-                        <div class="event-filter-items">
-                            <div class="featured-controls">
-                                <div class="row" data-ref="event-filter-content">
-                                    <div
-                                        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix arts concert workshops volunteer sports health_Wellness"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-1.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="venue_event_detail_view.html" class="event-title">A New Way Of
-                                                    Life</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $100.00*</span>
-                                                    <span class="remaining"></span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>15 Apr</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Fri, 3.45 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix business workshops volunteer sports health_Wellness"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="online_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-2.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="online_event_detail_view.html" class="event-title">Earrings
-                                                    Workshop with Bronwyn David</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $75.00*</span>
-                                                    <span class="remaining"><i
-                                                            class="fa-solid fa-ticket fa-rotate-90"></i>6 Remaining</span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>30 Apr</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Sat, 11.20 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>2h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix coaching_consulting free concert volunteer health_Wellness bussiness"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-3.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="venue_event_detail_view.html" class="event-title">Spring
-                                                    Showcase Saturday April 30th 2022 at 7pm</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">Free*</span>
-                                                    <span class="remaining"></span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>1 May</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Sun, 4.30 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>3h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class=" col-xl-3 col-lg-4 col-md-6 col-sm-12 mix health_Wellness concert volunteer sports free business"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="online_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-4.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="online_event_detail_view.html" class="event-title">Shutter
-                                                    Life</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $85.00</span>
-                                                    <span class="remaining"><i
-                                                            class="fa-solid fa-ticket fa-rotate-90"></i>7 Remaining</span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>1 May</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Sun, 5.30 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix concert sports health_Wellness free arts"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-5.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="venue_event_detail_view.html" class="event-title">Friday Night
-                                                    Dinner at The Old Station May 27 2022</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $41.50*</span>
-                                                    <span class="remaining"></span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>27 May</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Fri, 12.00 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>5h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix workshops concert arts volunteer sports"
-                                        data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-6.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="venue_event_detail_view.html" class="event-title">Step Up Open
-                                                    Mic Show</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $200.00*</span>
-                                                    <span class="remaining"></span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>30 Jun</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Thu, 4.30 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix volunteer free health_Wellness"
-                                         data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="online_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-7.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="online_event_detail_view.html" class="event-title">Tutorial on
-                                                    Canvas Painting for Beginners</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $50.00*</span>
-                                                    <span class="remaining"><i
-                                                            class="fa-solid fa-ticket fa-rotate-90"></i>17 Remaining</span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>17 Jul</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Sun, 5.30 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>1h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mix sports concert volunteer arts"
-                                         data-ref="mixitup-target">
-                                        <div class="main-card mt-4">
-                                            <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
-                                                    <img src="images/event-imgs/img-8.jpg" alt="">
-                                                </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
-                                            </div>
-                                            <div class="event-content">
-                                                <a href="venue_event_detail_view.html" class="event-title">Trainee
-                                                    Program on Leadership' 2022</a>
-                                                <div class="duration-price-remaining">
-                                                    <span class="duration-price">AUD $120.00*</span>
-                                                    <span class="remaining"><i
-                                                            class="fa-solid fa-ticket fa-rotate-90"></i>7 Remaining</span>
-                                                </div>
-                                            </div>
-                                            <div class="event-footer">
-                                                <div class="event-timing">
-                                                    <div class="publish-date">
-                                                        <span><i class="fa-solid fa-calendar-day me-2"></i>20 Jul</span>
-                                                        <span class="dot"><i class="fa-solid fa-circle"></i></span>
-                                                        <span>Wed, 11.30 PM</span>
-                                                    </div>
-                                                    <span class="publish-time"><i class="fa-solid fa-clock me-2"></i>12h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="browse-btn">
-                                    <a href="explore_events.html" class="main-btn btn-hover ">Browse All</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="body widget">
+                        <ul class="list-unstyled categories-clouds m-b-0">
+                            <li><a href="javascript:void(0);">eCommerce</a></li>
+                            <li><a href="javascript:void(0);">Microsoft Technologies</a></li>
+                            <li><a href="javascript:void(0);">Creative UX</a></li>
+                            <li><a href="javascript:void(0);">Wordpress</a></li>
+                            <li><a href="javascript:void(0);">Angular JS</a></li>
+                            <li><a href="javascript:void(0);">Enterprise Mobility</a></li>
+                            <li><a href="javascript:void(0);">Website Design</a></li>
+                            <li><a href="javascript:void(0);">HTML5</a></li>
+                            <li><a href="javascript:void(0);">Infographics</a></li>
+                            <li><a href="javascript:void(0);">Wordpress Development</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-@endsection
+
 
 

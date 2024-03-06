@@ -2,27 +2,28 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
-<!-- Mirrored from www.gambolthemes.net/html-items/barren-html/disable-demo-link/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2024 14:01:34 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Barren - Simple Online Event Ticketing System</title>
+    <title>Evento - Simple Online Event Ticketing System</title>
 
-    <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="images/fav.png">
 
-    <!-- Stylesheets -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/night-mode.css" rel="stylesheet">
 
-    <!-- Vendor Stylesheets -->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../../css/vertical-responsive-menu.min.css" rel="stylesheet">
+    <link href="../../vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../../vendor/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="../../vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+
 
     <!-- cdn -->
 
@@ -30,11 +31,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
 
-{{--    tiny cloud link--}}
+{{-- tiny cloud link--}}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
-
-
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -77,7 +76,7 @@
                         </div>
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe_5">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="#events" role="button" >
@@ -123,7 +122,7 @@
                             </li>
                         @else
                             <li>
-                                <a href="create.html" class="create-btn btn-hover">
+                                <a href="/create-event" class="create-btn btn-hover">
                                     <i class="fa-solid fa-calendar-days"></i>
                                     <span>Create Event</span>
                                 </a>
@@ -144,7 +143,7 @@
                                         </div>
                                     </li>
                                     <li class="profile-link">
-                                        <a href="my_organisation_dashboard.html" class="link-item">My Organisation</a>
+                                        <a href="/admin-dashboard" class="link-item">My Organisation</a>
                                         <a href="organiser_profile_view.html" class="link-item">My Profile</a>
                                         <form method="post" action="/logout">
                                             @csrf
@@ -163,9 +162,6 @@
 </header>
 
 @yield('content')
-
-
-
 
     <script src="../../js/custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

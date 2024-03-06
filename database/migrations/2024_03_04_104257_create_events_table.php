@@ -6,36 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->dateTime('start_date');
-            $table->time('time');
-            $table->string('duration');
-            $table->string('address');
-            $table->string('state');
-            $table->string('city');
-            $table->string('zipCode');
-            $table->integer('tick_price');
-            $table->integer('tick_number');
+            $table->text('description')->nullable();
+            $table->date('start_date')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('address')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zipCode')->nullable();
+            $table->integer('tick_price')->nullable();
+            $table->integer('tick_number')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->boolean('Status')->default(false);
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('events');

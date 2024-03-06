@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\eventDetails;
 use App\Http\Controllers\ProfileController;
@@ -17,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [EventController::class, 'Show']);
 
 
 Route::get('/details', [eventDetails::class, 'index']);
@@ -38,5 +37,11 @@ Route::middleware('auth')->group(function () {
 Route::get('auth/google', [SociaLiteController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [SociaLiteController::class, 'handleGoogleCallBack']);
 Route::get('/create-event' , [EventController::class, 'create']);
-Route::post('/event_create', )
+Route::post('/event_create', [EventController::class, 'event_create'])->name('event_create');
+Route::get('/admin-dashboard', [AdminController::class, 'index']);
+Route::post('/approveEvent/{id}', [AdminController::class, 'Approve'])->name('approveEvent');
+Route::post('/refuseEvent/{id}', [AdminController::class, 'Refuse'])->name('refuseEvent');
+Route::get('/eventDetails/{id}' , [EventController::class, 'details'])->name('eventDetails');
+Route::get('editEvent/{id}', [EventController::class, 'editEvent'])->name('editEvent');
+Route::post('deleteEvent/{id}', [EventController::class, 'DeleteEvent'])->name('DeleteEvent');
 require __DIR__.'/auth.php';
