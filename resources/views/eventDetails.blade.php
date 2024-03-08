@@ -270,12 +270,29 @@
         }
     </style>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
 <div id="main-content" class="blog-page">
+
     <div class="container">
         <div class="row clearfix">
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <p><strong>Opps Something went wrong</strong></p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
             <div class="col-lg-8 col-md-12 left-box">
                 <div class="card single_post">
                     <div class="body">
@@ -283,10 +300,64 @@
                             <img src="storage/images/{{$event->image}}" class="d-block img-fluid"  alt="First slide">
                         </div>
                         <h3><a href="blog-details.html">{{$event->title}}</a></h3>
-                        <p>
+                        <p class="my-4">
                             {{$event->description}}
                         .</p>
+                        @if($ticketTypes)
+                            @foreach($ticketTypes as $ticketType)
+                                <p>Ticket Type:<span class="text-success" style="font-weight: 700;"> {{ $ticketType->type }}</span></p>
+                                @if($ticketType->quantity >= 1)
+                                    <p >Quantity: <span class="text-success" style="font-weight: 700;">{{$ticketType->quantity }}</span></p>
+                                @else
+                                    <p >Quantity: <span class="text-danger" style="font-weight: 700;">0</span></p>
+                                @endif
+                                <p>Price: <span class="text-success" style="font-weight: 700;"> {{ $ticketType->price }}</span></p>
+                            @endforeach
+                        @else
+                            <p style="font-weight: 700; font-weight: bold;" >teckets are sold out.</p>
+                        @endif
                     </div>
+                    <div class="container mx-3">
+                       @if(Auth::check())
+                            <button type="button" style="border: 0; background: #6ac045; color: white; border-radius: 5px" class=" bookmark-icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                reservee
+                            </button>
+                        @else
+                            <button type="button"  style="border: 0; background: #6ac045; color: white; border-radius: 5px" class=" bookmark-icon" onclick="alert('please login first')"  data-bs-toggle="modal" data-bs-target="#staticBacksdrop">
+                                reservee
+
+                            </button>
+                        @endif
+                    </div>
+                    <form method="post" action="{{route('reserve', $event->id)}}">
+                        @csrf
+                        <button type="button" style="border: 0;" class="bookmark-icon" title="Bookmark"></button>
+                        <div class="modal fade  " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                               <form method="post" action="{{route('reserve' , $event->id)}}">
+                                   <div class="modal-content">
+                                       <div class="modal-header">
+                                           <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                       </div>
+                                       <div class="modal-body">
+                                           <div class="col-md-12">
+                                               <div class="form-group mt-1">
+                                                   <label class="form-label fs-6">Number of Tickets</label>
+                                                   <input  class="form-control h_50" name="numberOfTickets" type="number" placeholder="number of ticket" value="">
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                       <div class="modal-footer">
+                                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                           <button type="submit" style="border: 0; background: #6ac045; color: white; border-radius: 5px" >Reserve</button>
+                                       </div>
+                                   </div>
+                               </form>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
 
@@ -308,16 +379,9 @@
                     </div>
                     <div class="body widget">
                         <ul class="list-unstyled categories-clouds m-b-0">
-                            <li><a href="javascript:void(0);">eCommerce</a></li>
-                            <li><a href="javascript:void(0);">Microsoft Technologies</a></li>
-                            <li><a href="javascript:void(0);">Creative UX</a></li>
-                            <li><a href="javascript:void(0);">Wordpress</a></li>
-                            <li><a href="javascript:void(0);">Angular JS</a></li>
-                            <li><a href="javascript:void(0);">Enterprise Mobility</a></li>
-                            <li><a href="javascript:void(0);">Website Design</a></li>
-                            <li><a href="javascript:void(0);">HTML5</a></li>
-                            <li><a href="javascript:void(0);">Infographics</a></li>
-                            <li><a href="javascript:void(0);">Wordpress Development</a></li>
+                            @foreach($categories as $category)
+                            <li><a href="">{{$category->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -325,6 +389,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 
 

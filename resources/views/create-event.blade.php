@@ -26,7 +26,22 @@
                     <div class="main-title text-center">
                         <h3>Create Venue Event</h3>
                     </div>
-
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <p><strong>Opps Something went wrong</strong></p>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if(session('success'))
+                        <div class="alert alert-success">{{session('success')}}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{session('error')}}</div>
+                    @endif
                 </div>
                 <div class="col-xl-8 col-lg-9 col-md-12">
                     <form method="post" action="{{route('event_create')}}"  enctype="multipart/form-data">
@@ -207,8 +222,15 @@
                                                                 <div class="col-md-6">
                                                                     <label class="form-label mt-3 fs-6">Total number of tickets available*</label>
                                                                     <div class="input-number">
-                                                                        <input class="form-control h_50" name="tick_number" type="number" placeholder="" value="5">
+                                                                        <input class="form-control h_50" name="quantity" type="number" placeholder="" value="5">
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label mt-3 fs-6">Total number of tickets available*</label>
+                                                                    <select class="form-control h_50" name="ticket_type">
+                                                                        <option value="vip">Vip</option>
+                                                                        <option value="standard">standard</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>

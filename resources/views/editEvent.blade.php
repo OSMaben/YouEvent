@@ -47,16 +47,16 @@
                                                                 <div class="form-group border_bottom pb_30">
                                                                     <label class="form-label fs-16">Give your event a name.*</label>
                                                                     <p class="mt-2 d-block fs-14 mb-3">See how your name appears on the event page and a list of all places where your event name will be used. <a href="#" class="a-link">Learn more</a></p>
-                                                                    <input class="form-control h_50" type="text" name="name" placeholder="Enter event name here" value="">
+                                                                    <input class="form-control h_50" type="text" name="name" placeholder="Enter event name here" value="{{$event->title}}">
                                                                 </div>
 
                                                                 <div class="form-group border_bottom pt_30 pb_30">
                                                                     <label class="form-label fs-16">Choose a category for your event.*</label>
                                                                     <p class="mt-2 d-block fs-14 mb-3">Choosing relevant categories helps to improve the discoverability of your event. <a href="#" class="a-link">Learn more</a></p>
                                                                     <select class="form-control h_50" >
-                                                                        @foreach($categories as $category)
-                                                                            <option value="01">{{$category->name }}</option>
-                                                                        @endforeach
+{{--                                                                        @foreach($categories as $category)--}}
+{{--                                                                            <option value="01">{{$category->name }}</option>--}}
+{{--                                                                        @endforeach--}}
                                                                     </select>
                                                                 </div>
 
@@ -224,6 +224,7 @@
                                             <button data-direction="finish" class="btn btn-default btn-hover steps_btn">Create</button>
                                         </div>
                                     </div>
+
                         </form>
                     </div>
                 </div>

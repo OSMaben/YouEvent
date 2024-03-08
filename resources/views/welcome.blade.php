@@ -38,17 +38,16 @@
                                         data-ref="mixitup-target">
                                         <div class="main-card mt-4">
                                             <div class="event-thumbnail">
-                                                <a href="venue_event_detail_view.html" class="thumbnail-img">
+                                                <a href="#" class="thumbnail-img">
                                                     <img src="storage/images/{{$event->image}}" alt="">
                                                 </a>
-                                                <span class="bookmark-icon" title="Bookmark"></span>
                                             </div>
                                             <div class="event-content">
                                                 <form method="get" action="{{route('eventDetails', $event->id)}}">
                                                     @csrf
                                                     <button type="submit" class="event-title" style="margin: 0; background: transparent; border: 0; font-size: 1.3rem">{{$event->title}}</button>
                                                 </form>
-                                                <span class="duration-price my-4">{{$event->description}}</span>
+                                                <span class="duration-price my-4 ">{{ Str::limit($event->description, 50) }}</span>
 
                                                 <div class="duration-price-remaining">
                                                     <span class="duration-price">${{$event->tick_price}}</span>

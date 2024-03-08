@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('city')->nullable();
             $table->string('zipCode')->nullable();
-            $table->integer('tick_price')->nullable();
-            $table->integer('tick_number')->nullable();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
