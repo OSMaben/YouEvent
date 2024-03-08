@@ -151,6 +151,7 @@ class EventController extends Controller
 
         $event->save();
 
+
         return redirect('/admin-dashboard');
     }
 }

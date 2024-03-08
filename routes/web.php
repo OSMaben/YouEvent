@@ -43,7 +43,10 @@ Route::get('/eventDetails/{id}' , [EventController::class, 'details'])->name('ev
 Route::post('editEvent/{id}', [EventController::class, 'editEvent'])->name('editEvent');
 Route::post('deleteEvent/{id}', [EventController::class, 'DeleteEvent'])->name('DeleteEvent');
 Route::post('reserve/{id}', [ReservationController::class, 'reserve'])->name('reserve');
-Route::post('/CancelReservation/{id}', [ReservationController::class, 'cancelReservation'])->name('CancelReservation');
-
-
+Route::DELETE('/CancelReservation/{id}', [ReservationController::class, 'cancelReservation'])->name('CancelReservation');
+Route::get('userList', [AdminController::class, 'userslist'])->name('usersList');
+Route::post('userList/{id}', [AdminController::class, 'updateUserRole'])->name('updateRole');
+Route::get('categories', [AdminController::class, 'categories'])->name('categories');
+Route::post('AddCategories', [AdminController::class, 'AddCategories'])->name('AddCategories');
+Route::DELETE('deleteCategory/{id}', [AdminController::class, 'deleteCategory'])->name('deleteCategory');
 require __DIR__.'/auth.php';

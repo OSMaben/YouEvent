@@ -32,14 +32,15 @@ class ReservationController extends Controller
 
     public function cancelReservation($id)
     {
-        $reservation = reservation::where('event_id',$id)->first();
+        $reservation = Reservation::find($id);
 
         if ($reservation) {
             $reservation->delete();
-            return redirect()->back()->with('success', 'Event deleted successfully.');
+            return redirect()->back()->with('success', 'Reservation cancelled successfully.');
         } else {
-            return redirect()->back()->with('error', 'Event not found.');
+            return redirect()->back()->with('error', 'Reservation not found.');
         }
     }
+
 
 }

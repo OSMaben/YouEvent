@@ -8,65 +8,25 @@
                 <div class="left_section">
                     <ul>
                         <li class="menu--item">
-                            <a href="my_organisation_dashboard.html" class="menu--link active" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
+                            <a href="" class="menu--link active" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right">
                                 <i class="fa-solid fa-gauge menu--icon"></i>
                                 <span class="menu--label">Dashboard</span>
                             </a>
                         </li>
+                        @if(auth()->user()->role_id == 2)
                         <li class="menu--item">
-                            <a href="my_organisation_dashboard_events.html" class="menu--link" title="Events" data-bs-toggle="tooltip" data-bs-placement="right">
+                            <a href="" class="menu--link" title="Events" data-bs-toggle="tooltip" data-bs-placement="right">
                                 <i class="fa-solid fa-calendar-days menu--icon"></i>
-                                <span class="menu--label">Events</span>
+                                <span class="menu--label">Events Categories</span>
                             </a>
                         </li>
                         <li class="menu--item">
-                            <a href="my_organisation_dashboard_promotion.html" class="menu--link" title="Promotion" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-rectangle-ad menu--icon"></i>
-                                <span class="menu--label">Promotion</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_contact_lists.html" class="menu--link" title="Contact List" data-bs-toggle="tooltip" data-bs-placement="right">
+                            <a href="/userList" class="menu--link" title="Contact List" data-bs-toggle="tooltip" data-bs-placement="right">
                                 <i class="fa-regular fa-address-card menu--icon"></i>
-                                <span class="menu--label">Contact List</span>
+                                <span class="menu--label">Users List</span>
                             </a>
                         </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_payout.html" class="menu--link" title="Payouts" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-credit-card menu--icon"></i>
-                                <span class="menu--label">Payouts</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_reports.html" class="menu--link" title="Reports" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-chart-pie menu--icon"></i>
-                                <span class="menu--label">Reports</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_subscription.html" class="menu--link" title="Subscription" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-bahai menu--icon"></i>
-                                <span class="menu--label">Subscription</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_conversion_setup.html" class="menu--link" title="Conversion Setup" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-square-plus menu--icon"></i>
-                                <span class="menu--label">Conversion Setup</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_about.html" class="menu--link" title="About" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-circle-info menu--icon"></i>
-                                <span class="menu--label">About</span>
-                            </a>
-                        </li>
-                        <li class="menu--item">
-                            <a href="my_organisation_dashboard_my_team.html" class="menu--link team-lock" title="My Team" data-bs-toggle="tooltip" data-bs-placement="right">
-                                <i class="fa-solid fa-user-group menu--icon"></i>
-                                <span class="menu--label">My Team</span>
-                            </a>
-                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -80,6 +40,22 @@
                                 <h3><i class="fa-solid fa-gauge me-3"></i>Dashboard</h3>
                             </div>
                         </div>
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <p><strong>Opps Something went wrong</strong></p>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if(session('success'))
+                            <div class="alert alert-success">{{session('success')}}</div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger">{{session('error')}}</div>
+                        @endif
                         <div class="col-md-12">
                             <div class="main-card add-organisation-card p-4 mt-5">
                                 <div class="ocard-left">
@@ -87,23 +63,25 @@
                                         <img src="images/profile-imgs/img-13.jpg" alt="">
                                     </div>
                                     <div class="ocard-name">
-                                        <h4>John Doe</h4>
-                                        <span>My Organisation</span>
+                                        <h4>{{auth()->user()->name}}</h4>
+                                        <span>{{auth()->user()->email}}</span>
                                     </div>
                                 </div>
                                @if(auth()->user()->role_id == 2)
                                     <div class="ocard-right">
                                         <button class="pe-4 ps-4 co-main-btn min-width" data-bs-toggle="modal" data-bs-target="#addorganisationModal"><i class="fa-solid fa-plus"></i>Add Organisation</button>
                                     </div>
-                                @else
+                                @elseif(auth()->user()->role_id == 3)
                                     <div class="ocard-right">
                                         <form action="/create-event">
                                             <button class="pe-4 ps-4 co-main-btn min-width" data-bs-toggle="modal" data-bs-target="#addorganisationModal"><i class="fa-solid fa-plus"></i>Add Event</button>
                                         </form>
                                     </div>
+
                                @endif
                             </div>
                             <div class="main-card mt-4">
+                                @if(auth()->id() == 2 || auth()->id() == 3)
                                 <div class="dashboard-wrap-content">
                                     <div class="d-flex flex-wrap justify-content-between align-items-center p-4">
                                         <div class="dashboard-date-wrap d-flex flex-wrap justify-content-between align-items-center">
@@ -215,6 +193,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
 
                         </div>
@@ -518,35 +497,33 @@
                                                 </table>
                                             @else
                                                 <table class="table">
-                                                    <!-- Table header -->
                                                     <thead class="thead-dark">
                                                     <tr>
-                                                        <th scope="col">Event Owner</th>
                                                         <th scope="col">Event Name</th>
-                                                        <th scope="col">price</th>
+                                                        <th scope="col">Price</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Duration</th>
+                                                        <th scope="col">City</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($events as $event)
+                                                    @foreach($reservations as $reservation)
                                                         <tr>
-                                                            <td>{{$event->title}}</td>
-                                                            <td><a href="#" target="_blank"> {{ Str::limit($event->description, 50) }}</a></td>
-                                                            <td>{{$event->tick_price}}$</td>
-                                                            <td>{{$event->start_date}}</td>
-                                                            <td>{{$event->city}}</td>
-                                                            <td class="d-flex">
-                                                                <button type="button" class="close-model-btn close-model-btn bg-success text-white mx-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$event->id}}">
-                                                                    <i class="fa-solid fa-download"></i>
+                                                            <td>{{ $reservation->event->title }}</td>
+                                                            <td>{{ $reservation->event->tick_price }}$</td>
+                                                            <td>{{ $reservation->event->start_date }}</td>
+                                                            <td>{{ $reservation->event->duration }}</td>
+                                                            <td>{{ $reservation->event->city }}</td>
+                                                            <td>
+                                                            <form action="{{ route('CancelReservation', $reservation->id) }}" method="post" onsubmit="return confirm('Are you sure you want to Cancel Your Event');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="close-model-btn bg-danger text-white" data-bs-dismiss="modal" aria-label="Close" >
+                                                                    <i class="fa-solid fa-power-off"></i>
                                                                 </button>
-                                                                <form method="post" action="{{route('CancelReservation', $event->id)}}" onsubmit="return confirm('Are you sure you want to cancel your order');">
-                                                                    @csrf
-                                                                    <button type="submit" class="close-model-btn bg-danger text-white" data-bs-dismiss="modal" aria-label="Close">
-                                                                        <i class="fa-solid fa-trash"></i>
-                                                                    </button>
-                                                                </form>
+                                                            </form>
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
